@@ -6,8 +6,8 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 
 ## Useful links
 
-Documentation pages: [here](https://liamschilling.github.io/ReducibleMaps/docs/)
-Discussion of automation tactics and kernel-reducibility: [ReducibleMaps\Basic.lean](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Basic.html)
+- Documentation pages: [here](https://liamschilling.github.io/ReducibleMaps/docs/)
+- Discussion of automation tactics and kernel-reducibility: [ReducibleMaps\Basic.lean](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Basic.html)
 
 ## Organization of the repository
 
