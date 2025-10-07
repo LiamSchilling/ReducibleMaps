@@ -16,7 +16,7 @@ Defines the type of binary trees with a value at each node.
 - `a ∈ T`: the value `a` of type `α` is contained at some node in the tree `T`.
 - `T.ordered`: the left-to-right traversal of the tree `T` is strictly increasingly ordered.
 
-## Main [simp sets](ReducibleMaps.Init.html)
+## Main [simp sets](ReducibleMaps/Init.html)
 
 - `simp_elemMem`: reduces `a ∈ T`, requiring judgments of equality between `a` and elements in `T`.
 - `simp_ordered`: reduces `T.ordered` by first rewriting it as `T.infThenSupThenOrdered.ordered`,
