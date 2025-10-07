@@ -46,11 +46,11 @@ Alternatively, navigate to `Test.lean` and `Main.lean` to inspect the tests and 
 
 ## Main definitions
 
-- `OrdCFinsupp`: a representation of `Finsupp`, implemented as an ordered map.
-- `OrdCMultiset`: a representation of `Multiset`, implemented as a map from domain members to their multiplicity.
-- `OrdCFinset`: a representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
-- `OrdCMvPolynomial`: a representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
-- `OrdCPolynomial`: a representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
+- `OrdCFinsupp`: a computable representation of `Finsupp`, implemented as an ordered map.
+- `OrdCMultiset`: a computable representation of `Multiset`, implemented as a map from domain members to their multiplicity.
+- `OrdCFinset`: a computable representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
+- `OrdCMvPolynomial`: a computable representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
+- `OrdCPolynomial`: a computable representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
 
 ## Organization of the repository
 
@@ -65,8 +65,8 @@ Alternatively, navigate to `Test.lean` and `Main.lean` to inspect the tests and 
 ### Roadmap
 
 - `ReducibleMaps\OrdTree.lean`: defines the type of ordered binary trees, otherwise known as binary search trees.
-- `ReducibleMaps\OrdCFinsupp.lean`: defines `OrdCFinsupp`, a representation of `Finsupp`.
-- `ReducibleMaps\OrdCMultiset.lean`: defines `OrdCMultiset`, a representation of `Multiset`.
-- `ReducibleMaps\OrdCFinset.lean`: defines `OrdCFinset`, a representation of `Finset`.
-- `ReducibleMaps\OrdCMvPolynomial.lean`: defines `OrdCMvPolynomial`, a representation of `MvPolynomial`.
-- `ReducibleMaps\OrdCPolynomial.lean`: defines `OrdCPolynomial`, a representation of `Polynomial`.
+- `ReducibleMaps\OrdCFinsupp.lean`: defines `OrdCFinsupp`.
+- `ReducibleMaps\OrdCMultiset.lean`: defines `OrdCMultiset`.
+- `ReducibleMaps\OrdCFinset.lean`: defines `OrdCFinset`.
+- `ReducibleMaps\OrdCMvPolynomial.lean`: defines `OrdCMvPolynomial`.
+- `ReducibleMaps\OrdCPolynomial.lean`: defines `OrdCPolynomial`.
