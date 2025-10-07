@@ -1,6 +1,20 @@
 import ReducibleMaps.Init
 import Mathlib.Order.WithBot
 
+/-!
+# Custom Simp Sets
+
+This file adds basic lemmas to the custom simp sets for `simp` proof automation. Lemmas about
+propositional logic and inequalities are commonly necessary for instance.
+
+For further discussion of simp sets, see [ReducibleMaps/Init.lean](ReducibleMaps/Init.html).
+
+## Useful links
+
+The Lean Language Reference for `simp`: [here](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/#the-simplifier)
+The Lean Language Reference for simp sets: [here](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)
+-/
+
 attribute [
     simp_edgeLt, simp_pathLt, simp_pathMem, simp_elemMem, simp_contains,
     simp_infThenSupThenOrdered, simp_ordered,

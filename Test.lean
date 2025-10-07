@@ -7,7 +7,7 @@ This file tests the proof-automation capabilities of this library. Each `section
 tests the `decide` and `simp` tactics when relevant for proving statements about the named
 structure.
 
-For further discussion of these tactics, see [ReducibleMaps/Basic.lean](ReducibleMaps/Basic.html)
+For further discussion of these tactics, see [ReducibleMaps/Basic.lean](ReducibleMaps/Basic.html).
 -/
 
 namespace CMaps
