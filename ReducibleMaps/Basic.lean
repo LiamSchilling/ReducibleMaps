@@ -25,15 +25,12 @@ Each application takes the form of a rewrite step called a reduction, where the 
 is ideally simpler than the original statement. For a discussion of what "simpler" means, see
 [simp normal forms](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/Simp-Normal-Forms/#simp-normal-forms).
 We provide the necessary lemmas for reducing statements about relevant structures using a custom
-[simp set](ReducibleMaps/Init.html) for each structure. To demonstrate that the provided lemmas are
-sufficient, this file uses `simp only` so that only the lemmas provided by the simp set may be
-applied.
+[simp set](ReducibleMaps/Init.html) for each structure.
 
 When provided the appropriate lemmas, this approach is much more general than `decide` since it can
 reduce statements containing free variables and even process additional hypotheses. For instance,
 `simp` can show that a binary tree with with an explicit structure is ordered given the necessary
 comparison hypotheses between its elements, even when those elements are not explicit themselves.
-`section ordered` demonstrates this.
 
 When the statement is in fact false, `simp` will conveniently reduce the statement to `False`.
 
