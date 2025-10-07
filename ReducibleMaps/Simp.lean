@@ -11,8 +11,11 @@ For further discussion of simp sets, see [ReducibleMaps/Init.lean](ReducibleMaps
 
 ## Useful links
 
-The Lean Language Reference for `simp`: [here](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/#the-simplifier)
-The Lean Language Reference for simp sets: [here](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)
+The Lean Language Reference for `simp`:
+[here](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/#the-simplifier)
+
+The Lean Language Reference for simp sets:
+[here](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)
 -/
 
 attribute [

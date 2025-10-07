@@ -7,12 +7,16 @@ This file registers the custom simp sets for `simp` proof automation. Each simp 
 for reducing statements containing a particular structure. For instance, `simp_ordered` is intended
 to automate proofs of the form `T.ordered` where `T` is a member of `BinTree α`.
 
-For further discussion of the `simp` tactic, see [ReducibleMaps/Basic.lean](ReducibleMaps/Basic.html).
+For further discussion of the `simp` tactic, see
+[ReducibleMaps/Basic.lean](ReducibleMaps/Basic.html).
 
 ## Useful links
 
-The Lean Language Reference for `simp`: [here](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/#the-simplifier)
-The Lean Language Reference for simp sets: [here](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)
+The Lean Language Reference for `simp`:
+[here](https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/#the-simplifier)
+
+The Lean Language Reference for simp sets:
+[here](https://lean-lang.org/doc/reference/latest/The-Simplifier/Simp-sets/)
 -/
 
 namespace CMaps.Simp
