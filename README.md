@@ -21,7 +21,7 @@ name = "ReducibleMaps"
 git = "https://github.com/LiamSchilling/ReducibleMaps"
 ```
 
-Or the following to your project's `lakefile.lean`:
+Or add the following to your project's `lakefile.lean`:
 
 ```
 require ReducibleMaps from git
@@ -30,13 +30,13 @@ require ReducibleMaps from git
 
 ### To build locally
 
-Navigate to an empty project directory and run:
+To clone the project locally:
 
 ```
 git clone "https://github.com/LiamSchilling/ReducibleMaps"
 ```
 
-To build the project with all tests:
+Navigate to the new directory `ReducibleMaps`. To build the project with all tests:
 
 ```
 lake build
