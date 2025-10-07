@@ -11,11 +11,11 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 
 ## Main definitions
 
-- `OrdCFinsupp`: a computable representation of `Finsupp`, implemented as an ordered map.
-- `OrdCMultiset`: a computable representation of `Multiset`, implemented as a map from domain members to their multiplicity.
-- `OrdCFinset`: a computable representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
-- `OrdCMvPolynomial`: a computable representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
-- `OrdCPolynomial`: a computable representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
+- `OrdCFinsupp`: a representation of `Finsupp`, implemented as an ordered map.
+- `OrdCMultiset`: a representation of `Multiset`, implemented as a map from domain members to their multiplicity.
+- `OrdCFinset`: a representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
+- `OrdCMvPolynomial`: a representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
+- `OrdCPolynomial`: a representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
 
 ## Organization of the repository
 
@@ -25,13 +25,13 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 - [`Test.lean`](https://github.com/LiamSchilling/ReducibleMaps/blob/master/Test.lean): contains unit tests of the proof-automation capabilities of the library.
 - [`ReducibleMaps\Init.lean`](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Init.html): registers the custom simp sets for `simp` proof automation.
 - [`ReducibleMaps\BinTree.lean`](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/BinTree.html): defines the type of binary trees.
-- [`ReducibleMaps\Simp.lean`](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Simp.html): adds basic lemmas to the custom simp sets such as lemmas for propositional logic and inequalities.
+- [`ReducibleMaps\Simp.lean`](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Simp.html): adds basic lemmas to the custom simp sets for `simp` proof automation.
 
 ### Roadmap
 
 - `ReducibleMaps\OrdTree.lean`: defines the type of ordered binary trees, otherwise known as binary search trees.
-- `ReducibleMaps\OrdCFinsupp.lean`: defines `OrdCFinsupp`, a computable representation of `Finsupp`.
-- `ReducibleMaps\OrdCMultiset.lean`: defines `OrdCMultiset`, a computable representation of `Multiset`.
-- `ReducibleMaps\OrdCFinset.lean`: defines `OrdCFinset`, a computable representation of `Finset`.
-- `ReducibleMaps\OrdCMvPolynomial.lean`: defines `OrdCMvPolynomial`, a computable representation of `MvPolynomial`.
-- `ReducibleMaps\OrdCPolynomial.lean`: defines `OrdCPolynomial`, a computable representation of `Polynomial`.
+- `ReducibleMaps\OrdCFinsupp.lean`: defines `OrdCFinsupp`, a representation of `Finsupp`.
+- `ReducibleMaps\OrdCMultiset.lean`: defines `OrdCMultiset`, a representation of `Multiset`.
+- `ReducibleMaps\OrdCFinset.lean`: defines `OrdCFinset`, a representation of `Finset`.
+- `ReducibleMaps\OrdCMvPolynomial.lean`: defines `OrdCMvPolynomial`, a representation of `MvPolynomial`.
+- `ReducibleMaps\OrdCPolynomial.lean`: defines `OrdCPolynomial`, a representation of `Polynomial`.
