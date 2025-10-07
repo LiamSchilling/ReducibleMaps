@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-package reducible_maps
+package ReducibleMaps
 
 @[default_target]
 lean_lib ReducibleMaps

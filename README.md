@@ -9,6 +9,41 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 - Documentation pages: [here](https://liamschilling.github.io/ReducibleMaps/docs/)
 - Discussion of automation tactics and kernel-reducibility: [ReducibleMaps\Basic.lean](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Basic.html)
 
+## Installation
+
+### To use as a dependency
+
+Add the following to your project's `lakefile.toml`:
+
+```
+[[require]]
+name = "ReducibleMaps"
+git = "https://github.com/LiamSchilling/ReducibleMaps"
+```
+
+Or the following to your project's `lakefile.lean`:
+
+```
+require ReducibleMaps from git
+  "https://github.com/LiamSchilling/ReducibleMaps" @ "master"
+```
+
+### To build locally
+
+Navigate to an empty project directory and run:
+
+```
+git clone "https://github.com/LiamSchilling/ReducibleMaps"
+```
+
+To build the project with all tests:
+
+```
+lake build
+```
+
+Alternatively, navigate to `Test.lean` and `Main.lean` to inspect the tests and demonstrations directly.
+
 ## Main definitions
 
 - `OrdCFinsupp`: a representation of `Finsupp`, implemented as an ordered map.
