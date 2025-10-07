@@ -9,6 +9,14 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 - Documentation pages: [here](https://liamschilling.github.io/ReducibleMaps/docs/)
 - Discussion of automation tactics and kernel-reducibility: [ReducibleMaps\Basic.lean](https://liamschilling.github.io/ReducibleMaps/docs/ReducibleMaps/Basic.html)
 
+## Main definitions
+
+- `OrdCFinsupp`: a computable representation of `Finsupp`, implemented as an ordered map.
+- `OrdCMultiset`: a computable representation of `Multiset`, implemented as a map from domain members to their multiplicity.
+- `OrdCFinset`: a computable representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
+- `OrdCMvPolynomial`: a computable representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
+- `OrdCPolynomial`: a computable representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
+
 ## Organization of the repository
 
 ### Current
@@ -22,8 +30,8 @@ This project is the next iteration of [Automate Polynomial](https://github.com/L
 ### Roadmap
 
 - `ReducibleMaps\OrdTree.lean`: defines the type of ordered binary trees, otherwise known as binary search trees.
-- `ReducibleMaps\OrdCFinsupp.lean`: defines a computable representation of `Finsupp`, implemented as an ordered map.
-- `ReducibleMaps\OrdCMultiset.lean`: defines a computable representation of `Multiset`, implemented as a map from domain members to their multiplicity.
-- `ReducibleMaps\OrdCFinset.lean`: defines a computable representation of `Finset`, implemented as a multiset with a no-duplicates invariant.
-- `ReducibleMaps\OrdCMvPolynomial.lean`: defines a computable representation of `MvPolynomial`, implemented as a map from monomials to their coefficients.
-- `ReducibleMaps\OrdCPolynomial.lean`: defined a computable representation of `Polynomial`, implemented as a multivariate polynomial with one variable.
+- `ReducibleMaps\OrdCFinsupp.lean`: defines `OrdCFinsupp`, a computable representation of `Finsupp`.
+- `ReducibleMaps\OrdCMultiset.lean`: defines `OrdCMultiset`, a computable representation of `Multiset`.
+- `ReducibleMaps\OrdCFinset.lean`: defines `OrdCFinset`, a computable representation of `Finset`.
+- `ReducibleMaps\OrdCMvPolynomial.lean`: defines `OrdCMvPolynomial`, a computable representation of `MvPolynomial`.
+- `ReducibleMaps\OrdCPolynomial.lean`: defines `OrdCPolynomial`, a computable representation of `Polynomial`.
