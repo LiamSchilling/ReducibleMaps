@@ -8,13 +8,14 @@ Defines the type of binary trees with a value at each node.
 
 ## Main definitions
 
-- `BinTree α`: the type of binary trees containing members of `α`.
-- `Path`: the type of node indices, implemented as a list of directions `Edge.left` or
-  `Edge.right`.
-- `I ∈ᵢ T`: the path `I` is a valid index to a node in the tree `T`.
-- `T[I]`: the value of type `α` at index `I` in the tree `T`, requiring `I ∈ᵢ T` as a precondition.
-- `a ∈ T`: the value `a` of type `α` is contained at some node in the tree `T`.
-- `T.ordered`: the left-to-right traversal of the tree `T` is strictly increasingly ordered.
+- `BinTree`: the type of binary trees containing members of `α`.
+- `Path`: the type of node indices, implemented as a list of directions `left` or
+  `right`.
+- `pathMem`: the path `I` is a valid index to a node in the tree `T`.
+- `getElem`: the value of type `α` at index `I` in the tree `T`, requiring `I` is a valid index as
+  a precondition.
+- `elemMem`: the value `a` of type `α` is contained at some node in the tree `T`.
+- `ordered`: the left-to-right traversal of the tree `T` is strictly increasingly ordered.
 
 ## Main [simp sets](ReducibleMaps/Init.html)
 
@@ -31,6 +32,10 @@ inductive BinTree (α : Type*) where
   | cons : α → BinTree α → BinTree α → BinTree α
 
 namespace BinTree
+
+/-- The tree containing only the element `a`. -/
+def single (a : α) : BinTree α :=
+  cons a nil nil
 
 /-- The type of outgoing edges from a node in a binary tree. Namely, `left` and `right`. -/
 inductive Edge where
@@ -183,6 +188,16 @@ lemma pathMem_cons_left (L : BinTree α) (I : Path) : .left :: I ∈ᵢ cons a L
 lemma pathMem_cons_right (R : BinTree α) (I : Path) : .right :: I ∈ᵢ cons a L R ↔ I ∈ᵢ R := by
   rfl
 
+/-- `single` has the root index as a valid index. -/
+@[simp, simp_pathMem]
+lemma pathMem_single_nil (a : α) : [] ∈ᵢ single a :=
+  rfl
+
+/-- `single` does not have any concatenated index as a valid index. -/
+@[simp, simp_pathMem]
+lemma pathMem_single_cons (a : α) : ¬(i :: I) ∈ᵢ single a := by
+  cases i <;> simp [single, pathMem]
+
 /-- Accesses an element from a tree by index, requiring that the index is valid as a
 precondition.
 
@@ -196,7 +211,7 @@ def getElem : ∀ (T : BinTree α) I, I ∈ᵢ T → α
 instance : GetElem (BinTree α) Path α (fun T I => I ∈ᵢ T) where
   getElem T I h := T.getElem I h
 
-/-- The element at the root index it exactly the value at the root node. -/
+/-- The element at the root index is exactly the value at the root node. -/
 @[simp, simp_getElem]
 lemma getElem_cons_nil (a : α) : (cons a L R)[([] : Path)] = a :=
   rfl
@@ -213,10 +228,15 @@ lemma getElem_cons_right (L : BinTree α) (_ : .right :: I ∈ᵢ cons a L R) :
     (cons a L R)[.right :: I] = R[I] :=
   rfl
 
+/-- The element at the root index is exactly the value at the root node. -/
+@[simp, simp_getElem]
+lemma getElem_single_nil (a : α) : (single a)[([] : Path)] = a :=
+  rfl
+
 /-- Folds the values in a tree from the leaves to the root.
 
 For example:
-`fold f b (cons a₂ (cons a₁ nil nil) (cons a₃ nil nil)) = f a₂ (f a₁ b b) (f a₃ b b)` -/
+`fold f b (cons a₂ (single a₁) (single a₃)) = f a₂ (f a₁ b b) (f a₃ b b)` -/
 def fold (f : α → β → β → β) (b : β) : BinTree α → β
   | nil => b
   | cons a L R => f a (L.fold f b) (R.fold f b)
@@ -224,7 +244,7 @@ def fold (f : α → β → β → β) (b : β) : BinTree α → β
 /-- Folds the values in a tree over its left-to-right traversal.
 
 For example:
-`fold f b (cons a₂ (cons a₁ nil nil) (cons a₃ nil nil)) = f (f (f b a₁) a₂) a₃` -/
+`foldFlat f b (cons a₂ (single a₁) (single a₃)) = f (f (f b a₁) a₂) a₃` -/
 def foldFlat (f : β → α → β) (b : β) : BinTree α → β
   | nil => b
   | cons a L R => foldFlat f (f (foldFlat f b L) a) R
@@ -232,7 +252,7 @@ def foldFlat (f : β → α → β) (b : β) : BinTree α → β
 /-- Folds the values in a tree over its right-to-left traversal.
 
 For example:
-`fold f b (cons a₂ (cons a₁ nil nil) (cons a₃ nil nil)) = f a₁ (f a₂ (f a₃ b))` -/
+`foldFlatRev f b (cons a₂ (single a₁) (single a₃)) = f a₁ (f a₂ (f a₃ b))` -/
 def foldFlatRev (f : α → β → β) (b : β) : BinTree α → β
   | nil => b
   | cons a L R => foldFlatRev f (f a (foldFlatRev f b R)) L
@@ -295,7 +315,7 @@ For general applications, applying this lemma does not result in a simpler state
 mark it as `simp` generally. This lemma does result in a simpler statement when the goal is to
 traverse the tree searching for `a`, so we give it to our solving simp set `simp_elemMem`. -/
 @[simp_elemMem]
-lemma elemMem_cons_or (a₀ a : α) (L R : BinTree α) :
+lemma elemMem_cons_iff (a₀ a : α) (L R : BinTree α) :
     a₀ ∈ cons a L R ↔ a₀ = a ∨ a₀ ∈ L ∨ a₀ ∈ R := by
   constructor
   . intro ⟨I, _, _⟩
@@ -312,6 +332,20 @@ lemma elemMem_cons_or (a₀ a : α) (L R : BinTree α) :
         apply elemMem_of_getElem
         assumption
   . grind [elemMem_cons, elemMem_cons_left, elemMem_cons_right]
+
+/-- `single` contains only the element at its root. -/
+@[simp, simp_elemMem]
+lemma elemMem_single_unique (a₀ a : α) : a₀ ∈ single a ↔ a₀ = a := by
+  constructor
+  . intro h
+    simp only [single, elemMem_cons_iff] at h
+    rcases h with _ | h | h
+    . assumption
+    . absurd h; simp
+    . absurd h; simp
+  . intro h
+    rw [h]
+    apply elemMem_cons
 
 /-- Decides whether a value is contained at some node in a tree. This will be a decision procedure
 for `a ∈ T`. -/
@@ -357,12 +391,17 @@ lemma contains_cons_or [DecidableEq α] (a₀ a : α) (L R : BinTree α) :
     (cons a L R).contains a₀ ↔ a₀ = a ∨ L.contains a₀ ∨ R.contains a₀ := by
   grind [contains, fold]
 
+/-- `single` contains only the element at its root. -/
+@[simp, simp_contains]
+lemma contains_single_unique [DecidableEq α] (a₀ a : α) : (single a).contains a₀ ↔ a₀ = a := by
+  simp [single, contains, fold]
+
 /-- `T.contains a` decides `a ∈ T`. -/
 lemma contains_iff_elemMem [LT α] [DecidableEq α] (T : BinTree α) (a : α) :
     T.contains a ↔ a ∈ T := by
   induction T with
   | nil => constructor <;> simp
-  | cons a L R ih₁ ih₂ => grind [contains_cons_or, elemMem_cons_or]
+  | cons a L R ih₁ ih₂ => grind [contains_cons_or, elemMem_cons_iff]
 
 instance [LT α] [DecidableEq α] (T : BinTree α) (a : α) : Decidable (a ∈ T) :=
   decidable_of_decidable_of_iff <| contains_iff_elemMem T a
@@ -386,6 +425,11 @@ lemma inf_cons [SemilatticeInf α] (a : α) (L R : BinTree α) :
     (cons a L R).inf = ↑a ⊓ L.inf ⊓ R.inf :=
   rfl
 
+/-- The infimum of the tree with one element is that element. -/
+@[simp, simp_inf]
+lemma inf_single [SemilatticeInf α] (a : α) : (single a).inf = a :=
+  rfl
+
 /-- Returns the supremum of the elements in a tree, with `⊥` for the empty tree. -/
 def sup [SemilatticeSup α] : BinTree α → WithBot α :=
   fold (· ⊔ · ⊔ ·) ⊥
@@ -403,6 +447,11 @@ traverse the tree searching for the supremum, so we give it to our solving simp 
 @[simp_sup]
 lemma sup_cons [SemilatticeSup α] (a : α) (L R : BinTree α) :
     (cons a L R).sup = ↑a ⊔ L.sup ⊔ R.sup :=
+  rfl
+
+/-- The supremum of the tree with one element is that element. -/
+@[simp, simp_sup]
+lemma sup_single [SemilatticeSup α] (a : α) : (single a).sup = a :=
   rfl
 
 /-- Asserts that the left-to-right traversal of a tree is strictly increasingly ordered.
@@ -427,6 +476,11 @@ its right subtree. -/
 lemma ordered_cons [Lattice α] (a : α) (L R : BinTree α) :
     (cons a L R).ordered ↔ L.ordered ∧ R.ordered ∧ L.sup < a ∧ a < R.inf := by
   sorry
+
+/-- `single` is ordered. -/
+@[simp]
+lemma ordered_single [Lattice α] (a : α) : (single a).ordered := by
+  simp [single, ordered_cons]
 
 /-- An information structure intended to contain the infimum of a tree, the supremum of a tree, and
 a decision of whether the tree is ordered. For why this is useful, see `infThenSupThenOrdered`. -/
@@ -468,6 +522,12 @@ lemma infSupOrdered_cons [Lattice α] [DecidableLT α] (a : α) (L R : BinTree �
     match L.infThenSupThenOrdered, R.infThenSupThenOrdered with
     | ⟨Linf, Lsup, Lordered⟩, ⟨Rinf, Rsup, Rordered⟩ =>
       ⟨a ⊓ Linf ⊓ Rinf, a ⊔ Lsup ⊔ Rsup, Lordered && Rordered && Lsup < a && a < Rinf⟩ :=
+  rfl
+
+/-- The result of `infThenSupThenOrdered` in the `single` case. -/
+@[simp, simp_infThenSupThenOrdered, simp_ordered]
+lemma infThenSupThenOrdered_single [Lattice α] [DecidableLT α] (a : α) :
+    (single a).infThenSupThenOrdered = ⟨a, a, true⟩ :=
   rfl
 
 open Classical in

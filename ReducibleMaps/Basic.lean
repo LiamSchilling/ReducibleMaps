@@ -23,8 +23,8 @@ proved that the proposition `...` is false".
 The `simp` tactic constructs a proof of the statement by repeatedly applying some provided lemmas.
 Each application takes the form of a rewrite step called a reduction, where the rewritten statement
 is ideally simpler than the original statement. For a discussion of what "simpler" means, see
-[simp normal forms]
-(https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/Simp-Normal-Forms/#simp-normal-forms).
+[simp normal forms](
+https://lean-lang.org/doc/reference/4.20.0//The-Simplifier/Simp-Normal-Forms/#simp-normal-forms).
 We provide the necessary lemmas for reducing statements about relevant structures using a custom
 [simp set](ReducibleMaps/Init.html) for each structure.
 

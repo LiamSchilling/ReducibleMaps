@@ -66,16 +66,16 @@ section pathMem
 example : ¬[] ∈ᵢ (nil : BinTree Nat) := by decide
 example : ¬[Edge.left] ∈ᵢ (nil : BinTree Nat) := by decide
 example : ¬[Edge.right] ∈ᵢ (nil : BinTree Nat) := by decide
-example : [] ∈ᵢ cons 0 nil nil := by decide
-example : ¬[Edge.left] ∈ᵢ cons 0 nil nil := by decide
-example : ¬[Edge.right] ∈ᵢ cons 0 nil nil := by decide
+example : [] ∈ᵢ single 0 := by decide
+example : ¬[Edge.left] ∈ᵢ single 0 := by decide
+example : ¬[Edge.right] ∈ᵢ single 0 := by decide
 
 example : ¬[] ∈ᵢ (nil : BinTree Nat) := by simp only [simp_pathMem]
 example : ¬[Edge.left] ∈ᵢ (nil : BinTree Nat) := by simp only [simp_pathMem]
 example : ¬[Edge.right] ∈ᵢ (nil : BinTree Nat) := by simp only [simp_pathMem]
-example : [] ∈ᵢ cons 0 nil nil := by simp only [simp_pathMem]
-example : ¬[Edge.left] ∈ᵢ cons 0 nil nil := by simp only [simp_pathMem]
-example : ¬[Edge.right] ∈ᵢ cons 0 nil nil := by simp only [simp_pathMem]
+example : [] ∈ᵢ single 0 := by simp only [simp_pathMem]
+example : ¬[Edge.left] ∈ᵢ single 0 := by simp only [simp_pathMem]
+example : ¬[Edge.right] ∈ᵢ single 0 := by simp only [simp_pathMem]
 
 end pathMem
 
@@ -83,15 +83,15 @@ section getElem
 
 variable (a₁ a₂ a₃ : α) (_ : a₁ ≠ a₂) (_ : a₂ ≠ a₃) (_ : a₃ ≠ a₁)
 
-example : (cons 1 nil nil)[([] : Path)] = 1 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil))[([] : Path)] = 1 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil))[[Edge.left]] = 2 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil))[[Edge.right]] = 3 := by decide
+example : (single 1)[([] : Path)] = 1 := by decide
+example : (cons 1 (single 2) (single 3))[([] : Path)] = 1 := by decide
+example : (cons 1 (single 2) (single 3))[[Edge.left]] = 2 := by decide
+example : (cons 1 (single 2) (single 3))[[Edge.right]] = 3 := by decide
 
-example : (cons a₁ nil nil)[([] : Path)] = a₁ := by simp
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil))[([] : Path)] = a₁ := by simp only [simp_getElem]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil))[[Edge.left]] = a₂ := by simp only [simp_getElem]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil))[[Edge.right]] = a₃ := by simp only [simp_getElem]
+example : (single a₁)[([] : Path)] = a₁ := by simp
+example : (cons a₁ (single a₂) (single a₃))[([] : Path)] = a₁ := by simp only [simp_getElem]
+example : (cons a₁ (single a₂) (single a₃))[[Edge.left]] = a₂ := by simp only [simp_getElem]
+example : (cons a₁ (single a₂) (single a₃))[[Edge.right]] = a₃ := by simp only [simp_getElem]
 
 end getElem
 
@@ -100,20 +100,20 @@ section elemMem
 variable (a₁ a₂ a₃ : α) (h₁ : a₁ ≠ a₂) (h₂ : a₂ ≠ a₃) (h₃ : a₃ ≠ a₁)
 
 example : ¬1 ∈ nil := by decide
-example : 1 ∈ cons 1 nil nil := by decide
-example : ¬2 ∈ cons 1 nil nil := by decide
-example : 1 ∈ cons 1 (cons 2 nil nil) (cons 3 nil nil) := by decide
-example : 2 ∈ cons 1 (cons 2 nil nil) (cons 3 nil nil) := by decide
-example : 3 ∈ cons 1 (cons 2 nil nil) (cons 3 nil nil) := by decide
-example : ¬3 ∈ cons 1 (cons 2 nil nil) (cons 2 nil nil) := by decide
+example : 1 ∈ single 1 := by decide
+example : ¬2 ∈ single 1 := by decide
+example : 1 ∈ cons 1 (single 2) (single 3) := by decide
+example : 2 ∈ cons 1 (single 2) (single 3) := by decide
+example : 3 ∈ cons 1 (single 2) (single 3) := by decide
+example : ¬3 ∈ cons 1 (single 2) (single 2) := by decide
 
 example : ¬a₁ ∈ nil := by simp only [simp_elemMem]
-example : a₁ ∈ cons a₁ nil nil := by simp only [simp_elemMem]
-example : ¬a₂ ∈ cons a₁ nil nil := by simp only [simp_elemMem, h₁.symm]
-example : a₁ ∈ cons a₁ (cons a₂ nil nil) (cons a₃ nil nil) := by simp only [simp_elemMem]
-example : a₂ ∈ cons a₁ (cons a₂ nil nil) (cons a₃ nil nil) := by simp only [simp_elemMem]
-example : a₃ ∈ cons a₁ (cons a₂ nil nil) (cons a₃ nil nil) := by simp only [simp_elemMem]
-example : ¬a₃ ∈ cons a₁ (cons a₂ nil nil) (cons a₂ nil nil) := by simp only [simp_elemMem, h₂.symm, h₃]
+example : a₁ ∈ single a₁ := by simp only [simp_elemMem]
+example : ¬a₂ ∈ single a₁ := by simp only [simp_elemMem, h₁.symm]
+example : a₁ ∈ cons a₁ (single a₂) (single a₃) := by simp only [simp_elemMem]
+example : a₂ ∈ cons a₁ (single a₂) (single a₃) := by simp only [simp_elemMem]
+example : a₃ ∈ cons a₁ (single a₂) (single a₃) := by simp only [simp_elemMem]
+example : ¬a₃ ∈ cons a₁ (single a₂) (single a₂) := by simp only [simp_elemMem, h₂.symm, h₃]
 
 end elemMem
 
@@ -123,20 +123,20 @@ variable [DecidableEq α]
 variable (a₁ a₂ a₃ : α) (h₁ : a₁ ≠ a₂) (h₂ : a₂ ≠ a₃) (h₃ : a₃ ≠ a₁)
 
 example : ¬nil.contains 1 := by decide
-example : (cons 1 nil nil).contains 1 := by decide
-example : ¬(cons 1 nil nil).contains 2 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil)).contains 1 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil)).contains 2 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil)).contains 3 := by decide
-example : ¬(cons 1 (cons 2 nil nil) (cons 2 nil nil)).contains 3 := by decide
+example : (single 1).contains 1 := by decide
+example : ¬(single 1).contains 2 := by decide
+example : (cons 1 (single 2) (single 3)).contains 1 := by decide
+example : (cons 1 (single 2) (single 3)).contains 2 := by decide
+example : (cons 1 (single 2) (single 3)).contains 3 := by decide
+example : ¬(cons 1 (single 2) (single 2)).contains 3 := by decide
 
 example : ¬nil.contains a₁ := by simp only [simp_contains]
-example : (cons a₁ nil nil).contains a₁ := by simp only [simp_contains]
-example : ¬(cons a₁ nil nil).contains a₂ := by simp only [simp_contains, h₁.symm]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).contains a₁ := by simp only [simp_contains]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).contains a₂ := by simp only [simp_contains]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).contains a₃ := by simp only [simp_contains]
-example : ¬(cons a₁ (cons a₂ nil nil) (cons a₂ nil nil)).contains a₃ := by simp only [simp_contains, h₂.symm, h₃]
+example : (single a₁).contains a₁ := by simp only [simp_contains]
+example : ¬(single a₁).contains a₂ := by simp only [simp_contains, h₁.symm]
+example : (cons a₁ (single a₂) (single a₃)).contains a₁ := by simp only [simp_contains]
+example : (cons a₁ (single a₂) (single a₃)).contains a₂ := by simp only [simp_contains]
+example : (cons a₁ (single a₂) (single a₃)).contains a₃ := by simp only [simp_contains]
+example : ¬(cons a₁ (single a₂) (single a₂)).contains a₃ := by simp only [simp_contains, h₂.symm, h₃]
 
 end contains
 
@@ -146,16 +146,16 @@ variable [SemilatticeInf α]
 variable (a₁ a₂ a₃ : α) (h₁ : a₁ ≤ a₂) (h₂ : a₂ ≤ a₃)
 
 example : (nil : BinTree ℕ).inf = ⊤ := by decide
-example : (cons 1 nil nil).inf = some 1 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil)).inf = some 1 := by decide
-example : (cons 3 (cons 1 nil nil) (cons 2 nil nil)).inf = some 1 := by decide
-example : (cons 2 (cons 3 nil nil) (cons 1 nil nil)).inf = some 1 := by decide
+example : (single 1).inf = some 1 := by decide
+example : (cons 1 (single 2) (single 3)).inf = some 1 := by decide
+example : (cons 3 (single 1) (single 2)).inf = some 1 := by decide
+example : (cons 2 (single 3) (single 1)).inf = some 1 := by decide
 
 example : (nil : BinTree α).inf = ⊤ := by simp only [simp_inf]
-example : (cons a₁ nil nil).inf = a₁ := by simp only [simp_inf]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
-example : (cons a₃ (cons a₁ nil nil) (cons a₂ nil nil)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
-example : (cons a₂ (cons a₃ nil nil) (cons a₁ nil nil)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
+example : (single a₁).inf = a₁ := by simp only [simp_inf]
+example : (cons a₁ (single a₂) (single a₃)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
+example : (cons a₃ (single a₁) (single a₂)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
+example : (cons a₂ (single a₃) (single a₁)).inf = a₁ := by simp [simp_inf, h₁, le_trans h₁ h₂]
 
 end inf
 
@@ -165,16 +165,16 @@ variable [SemilatticeSup α]
 variable (a₁ a₂ a₃ : α) (h₁ : a₁ ≤ a₂) (h₂ : a₂ ≤ a₃)
 
 example : (nil : BinTree ℕ).sup = ⊥ := by decide
-example : (cons 1 nil nil).sup = some 1 := by decide
-example : (cons 1 (cons 2 nil nil) (cons 3 nil nil)).sup = some 3 := by decide
-example : (cons 3 (cons 1 nil nil) (cons 2 nil nil)).sup = some 3 := by decide
-example : (cons 2 (cons 3 nil nil) (cons 1 nil nil)).sup = some 3 := by decide
+example : (single 1).sup = some 1 := by decide
+example : (cons 1 (single 2) (single 3)).sup = some 3 := by decide
+example : (cons 3 (single 1) (single 2)).sup = some 3 := by decide
+example : (cons 2 (single 3) (single 1)).sup = some 3 := by decide
 
 example : (nil : BinTree α).sup = ⊥ := by simp only [simp_sup]
-example : (cons a₁ nil nil).sup = a₁ := by simp only [simp_sup]
-example : (cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).sup = a₃ := by simp [simp_sup, h₁, h₂]
-example : (cons a₃ (cons a₁ nil nil) (cons a₂ nil nil)).sup = a₃ := by simp [simp_sup, h₂, le_trans h₁ h₂]
-example : (cons a₂ (cons a₃ nil nil) (cons a₁ nil nil)).sup = a₃ := by simp [simp_sup, h₂, le_trans h₁ h₂]
+example : (single a₁).sup = a₁ := by simp only [simp_sup]
+example : (cons a₁ (single a₂) (single a₃)).sup = a₃ := by simp [simp_sup, h₁, h₂]
+example : (cons a₃ (single a₁) (single a₂)).sup = a₃ := by simp [simp_sup, h₂, le_trans h₁ h₂]
+example : (cons a₂ (single a₃) (single a₁)).sup = a₃ := by simp [simp_sup, h₂, le_trans h₁ h₂]
 
 end sup
 
@@ -191,22 +191,22 @@ variable [Lattice α] [DecidableLT α]
 variable (a₁ a₂ a₃ : α) (h₁ : a₁ < a₂) (h₂ : a₂ < a₃)
 
 example : (nil : BinTree ℕ).ordered := by decide
-example : (cons 1 nil nil).ordered := by decide
-example : ¬(cons 1 (cons 2 nil nil) (cons 3 nil nil)).ordered := by decide
-example : ¬(cons 3 (cons 1 nil nil) (cons 2 nil nil)).ordered := by decide
-example : ¬(cons 2 (cons 3 nil nil) (cons 1 nil nil)).ordered := by decide
-example : ¬(cons 1 (cons 3 nil nil) (cons 2 nil nil)).ordered := by decide
-example : (cons 2 (cons 1 nil nil) (cons 3 nil nil)).ordered := by decide
-example : ¬(cons 3 (cons 2 nil nil) (cons 1 nil nil)).ordered := by decide
+example : (single 1).ordered := by decide
+example : ¬(cons 1 (single 2) (single 3)).ordered := by decide
+example : ¬(cons 3 (single 1) (single 2)).ordered := by decide
+example : ¬(cons 2 (single 3) (single 1)).ordered := by decide
+example : ¬(cons 1 (single 3) (single 2)).ordered := by decide
+example : (cons 2 (single 1) (single 3)).ordered := by decide
+example : ¬(cons 3 (single 2) (single 1)).ordered := by decide
 
 example : (nil : BinTree ℕ).ordered := by simp only [simp_ordered]
-example : (cons a₁ nil nil).ordered := by simp only [simp_ordered]
-example : ¬(cons a₁ (cons a₂ nil nil) (cons a₃ nil nil)).ordered := by simp only [simp_ordered, lt_asymm h₁]
-example : ¬(cons a₃ (cons a₁ nil nil) (cons a₂ nil nil)).ordered := by simp only [simp_ordered, lt_asymm h₂]
-example : ¬(cons a₂ (cons a₃ nil nil) (cons a₁ nil nil)).ordered := by simp only [simp_ordered, lt_asymm h₂]
-example : ¬(cons a₁ (cons a₃ nil nil) (cons a₂ nil nil)).ordered := by simp only [simp_ordered, lt_asymm (lt_trans h₁ h₂)]
-example : (cons a₂ (cons a₁ nil nil) (cons a₃ nil nil)).ordered := by simp only [simp_ordered, h₁, h₂]
-example : ¬(cons a₃ (cons a₂ nil nil) (cons a₁ nil nil)).ordered := by simp only [simp_ordered, lt_asymm (lt_trans h₁ h₂)]
+example : (single a₁).ordered := by simp only [simp_ordered]
+example : ¬(cons a₁ (single a₂) (single a₃)).ordered := by simp only [simp_ordered, lt_asymm h₁]
+example : ¬(cons a₃ (single a₁) (single a₂)).ordered := by simp only [simp_ordered, lt_asymm h₂]
+example : ¬(cons a₂ (single a₃) (single a₁)).ordered := by simp only [simp_ordered, lt_asymm h₂]
+example : ¬(cons a₁ (single a₃) (single a₂)).ordered := by simp only [simp_ordered, lt_asymm (lt_trans h₁ h₂)]
+example : (cons a₂ (single a₁) (single a₃)).ordered := by simp only [simp_ordered, h₁, h₂]
+example : ¬(cons a₃ (single a₂) (single a₁)).ordered := by simp only [simp_ordered, lt_asymm (lt_trans h₁ h₂)]
 
 end ordered
 
